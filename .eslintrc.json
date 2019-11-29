@@ -1,0 +1,81 @@
+{
+	"parser": "@typescript-eslint/parser",
+	"plugins": [
+		"prettier",
+		"@typescript-eslint",
+		"react",
+		"react-native"
+	],
+	"extends": [
+		"airbnb",
+		"prettier",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:react/recommended",
+		"plugin:react-native/all",
+		"standard"
+	],
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"project": "./tsconfig.json"
+	},
+	"rules": {
+		"import/prefer-default-export": [
+			0
+		],
+		"class-methods-use-this": [
+			0
+		],
+		"no-use-before-define": [
+			2,
+			{
+				"variables": false
+			}
+		],
+		"semi": [
+			"error",
+			"always"
+		],
+		"comma-dangle": [
+			"error",
+			"always"
+		],
+		"indent": [
+			"error",
+			4
+		],
+		"react-native/no-raw-text": 0,
+		"space-before-function-paren": 1,
+		"prettier/prettier": [
+			"error",
+			{
+				"semi": false,
+				"trailingComma": "none"
+			}
+		],
+		"react/jsx-wrap-multilines": false
+	},
+	"settings": {
+		"react": {
+			"pragma": "React",
+			"version": "detect"
+		}
+	},
+	"globals": {
+		"__DEV__": false,
+		"jasmine": false,
+		"beforeAll": false,
+		"afterAll": false,
+		"beforeEach": false,
+		"afterEach": false,
+		"test": false,
+		"expect": false,
+		"describe": false,
+		"jest": false,
+		"it": false
+	},
+	"env": {
+		"jest": true
+	}
+}
