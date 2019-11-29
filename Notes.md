@@ -38,3 +38,43 @@ centigrade)
 | Dial | Display current room temperature as a number and visually as a function of rotation in the range of 0 to 36 degrees | On change: <br><ul><li>Update the central number with the new value</li><li>Change the displayed rotation on the coloured temperature dial</li></ul>On click +/-: <br><ul><li>Change value by +/- 1 degree</li></ul> |
 | OutsideTemp | Display outside temperature | Nice to have: <br><ul><li>Display actual outside temperature, not hardcoded placeholder</li></ul> |
 | OutsideHumid | Display outside humidity | <b>Is this outside or inside humidity?</b><br><br> Nice to have: <br><ul><li>Display actual outside humidity, not hardcoded placeholder</li></ul> |
+
+### Header
+-   It should display `menu-white.png`
+-   It should display "UTILITIES"  
+-   It should display `cogwheel-white.png` 
+
+### Icon
+-   It should have a `selected` property, either `true` or `false`
+-   It should hold `selected` and `unselected` versions of each icon in state
+-   On click it should alternate which version of the icon is displayed
+
+### Carousel
+-   It should have a `selected` property
+-   It should display options: `["Living Room",
+"Kitchen", "Bedroom"]`
+-   On swipe, it should change which option is selected
+
+### Dial
+-   It should have a `temperature` property 
+-   It should display value for temperature at centre
+-   It should display equivalent temperature as a rotation around dial with 0&deg; relating to 0&deg;C and 360&deg; to 36&deg;C <i>Well aren't those nice numbers!</i>
+-   On click plus, temperature value should increase by 1
+-   On click minus, temperature value should decrease by 1
+-   On drag pointer on outer circle, adjust temperature value
+-   Pointer shouldn't be able to be dragged below 0&deg; 
+-   Pointer shouldn't be able to be dragged above 36&deg; 
+
+### OutsideTemp
+-   It should display "OUTSIDE"
+-   It should display "14&deg;"
+
+### OutsideHumid
+-   It should display "HUMIDITY"
+-   It should display "44%"
+
+### Page
+-   Should display all 5 `Icon`'s: `[bulb, centralheating, fire, connections, worldgrid]`
+-   Only one `Icon` should be selected at any one time
+-   On `Carousel` change, data should change
+
