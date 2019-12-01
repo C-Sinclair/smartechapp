@@ -11,6 +11,7 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "sourceMap": true,
+    "resolveJsonModule": true,
     "target": "es2015",
     "lib": [
       "es6"
