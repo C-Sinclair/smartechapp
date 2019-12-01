@@ -22,7 +22,7 @@ describe('App', () => {
 
         it('should display the <Header />', () => {
             expect(
-                queryByTestId('Header')
+                queryByTestId('header')
             ).not.toBeNull()
         })
     });

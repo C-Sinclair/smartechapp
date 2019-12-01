@@ -1,7 +1,7 @@
 import * as React from "react"
-import { AppRegistry, YellowBox, View } from "react-native"
+import { AppRegistry, YellowBox } from "react-native"
 import { screensEnabled } from "react-native-screens"
-// import Page from './components/Page/Page'
+import Page from '../Page/Page'
 
 // This puts screens in a native ViewController or Activity
 screensEnabled()
@@ -13,13 +13,12 @@ YellowBox.ignoreWarnings([
 
 const App: React.FunctionComponent<{}> = () => {
   return (
-    // <Page />
-    <View />
+    <Page />
   )
 }
 
 const APP_NAME = "smartechapp"
-const SHOW_STORYBOOK = false
+const SHOW_STORYBOOK = true
 
 let RootComponent = App
 if (SHOW_STORYBOOK) {
