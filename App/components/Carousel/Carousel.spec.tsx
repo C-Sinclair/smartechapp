@@ -28,7 +28,6 @@ describe('Carousel', () => {
         it('should update values on change', () => {
             getByTestId("carousel").props.onSnapToItem(0)
             expect(getByTestId("humidValue")).not.toBe("44%")
-            expect(getByTestId("tempValue")).not.toBe("14°")
         })
     })
 });

@@ -20,12 +20,12 @@ const Page: React.FunctionComponent<PageProps> = (props: PageProps) => {
     const [selected, onSelected] = React.useState<IconType>(icons[index] as IconType)
     const [room, setRoom] = React.useState(1)
 
-    let temp = calculateTemp(room)
     let humid = calculateHumidity(room)
+    let outsideTemp = calculateOutsideTemp()
 
     React.useEffect(() => {
-        temp = calculateTemp(room)
         humid = calculateHumidity(room)
+        outsideTemp = calculateOutsideTemp()
     }, [room])
 
 
@@ -46,7 +46,7 @@ const Page: React.FunctionComponent<PageProps> = (props: PageProps) => {
                     ? (
                         <React.Fragment>
                             <View testID="heating" style={styles.readings}>
-                                <OutsideTemp temp={temp} />
+                                <OutsideTemp temp={outsideTemp} />
                                 <OutsideHumid humid={humid} />
                             </View>
                             <CarouselComponent
@@ -66,11 +66,8 @@ const calculateHumidity = (room: number) => {
         : Math.floor(100 * Math.random())
 }
 
-const calculateTemp = (room: number) => {
-    return (room == 1)
-        ? 14
-        : Math.floor(36 * Math.random())
-}
+const calculateOutsideTemp = () => 14
+
 
 const styles = StyleSheet.create({
     page: {
