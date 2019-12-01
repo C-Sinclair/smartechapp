@@ -2,10 +2,14 @@ import * as React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import colours from '../../themes/Colours'
 
-const OutsideTemp = () => (
+type OutsideTempProps = {
+    temp: number
+}
+
+const OutsideTemp = (props: OutsideTempProps) => (
     <View>
         <Text testID="tempText" style={styles.title}>OUTSIDE</Text>
-        <Text testID="tempValue" style={styles.value}>14°</Text>
+        <Text testID="tempValue" style={styles.value}>{props.temp}°</Text>
     </View>
 )
 

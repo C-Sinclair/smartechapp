@@ -2,10 +2,14 @@ import * as React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import colours from '../../themes/Colours'
 
-const OutsideHumid = () => (
+type OutsideHumidProps = {
+    humid: number
+}
+
+const OutsideHumid = (props: OutsideHumidProps) => (
     <View>
         <Text testID="humidText" style={styles.title}>HUMIDITY</Text>
-        <Text testID="humidValue" style={styles.value}>44%</Text>
+        <Text testID="humidValue" style={styles.value}>{props.humid}%</Text>
     </View>
 )
 
