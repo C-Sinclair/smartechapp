@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { render } from 'react-native-testing-library'
 import App from './App'
 
 export const add = (a: number, b: number) => a + b;
@@ -16,11 +16,14 @@ const createTestProps = (props: object) => ({
 
 describe('App', () => {
     const props = createTestProps({});
-    const wrapper = shallow(<App {...props} />);
+    const { queryByTestId } = render(<App {...props} />);
 
     describe('rendering', () => {
-        it('should render a <View />', () => {
-            expect(wrapper.find('View')).toHaveLength(1);
-        });
+
+        it('should display the <Header />', () => {
+            expect(
+                queryByTestId('header')
+            ).not.toBeNull()
+        })
     });
 });
