@@ -18,7 +18,7 @@ const App: React.FunctionComponent<{}> = () => {
 }
 
 const APP_NAME = "smartechapp"
-const SHOW_STORYBOOK = true
+const SHOW_STORYBOOK = false
 
 let RootComponent = App
 if (SHOW_STORYBOOK) {
