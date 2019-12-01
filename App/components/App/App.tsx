@@ -13,7 +13,7 @@ YellowBox.ignoreWarnings([
 
 const App: React.FunctionComponent<{}> = () => {
   return (
-    <Page />
+    <Page selectedIcon={0} />
   )
 }
 

@@ -7,13 +7,14 @@ import icons from '../Icon/icons'
 import { IconType } from '../Icon/IconTypes'
 import colours from '../../themes/Colours'
 
-const Page: React.FunctionComponent<{}> = (props: Object) => {
+type PageProps = {
+    selectedIcon: number
+}
 
-    const [selected, onSelected] = React.useState<IconType>(icons[0] as IconType)
+const Page: React.FunctionComponent<PageProps> = (props: PageProps) => {
 
-    React.useEffect(() => {
-
-    }, [selected])
+    const index = props.selectedIcon || 0
+    const [selected, onSelected] = React.useState<IconType>(icons[index] as IconType)
 
     return (
         <LinearGradient colors={[colours.darkest, colours.lightest]} style={styles.page}>
