@@ -26,7 +26,7 @@ Kitchen, Bedroom)
 degree temperature wheel (corresponding to a temperature range 0 degrees to 36 degrees
 centigrade)
     -   Create a custom dial which can handle touch events changing the temperature data
-    -   Bonus: Screen could go all red if the temp is pushed near the top, likewise blue if close to the bottom
+    -   Bonus: Add iOS style clicking sound as user spins the dial
 
 # Component Breakdown
 
@@ -35,7 +35,7 @@ centigrade)
 | Header | Display settings icon, menu icon and hardcoded string "UTILITIES" | None specified |
 | Icon | Display either the selected or unselected static image icon | On click: <br><ul><li>Alternate selected/unselected image to display.</li><li>Unselect other icons <i>(will probably need to be handled in the parent component)</i></li><li>Update text in header?</li></ul> |
 | Carousel | Display which room data is currently being displayed | On change: <br><ul><li>Change displayed placeholder number on temperature dial.</li></ul> |
-| Dial | Display current room temperature as a number and visually as a function of rotation in the range of 0 to 36 degrees | On change: <br><ul><li>Update the central number with the new value</li><li>Change the displayed rotation on the coloured temperature dial</li></ul>On click +/-: <br><ul><li>Change value by +/- 1 degree</li></ul> |
+| Dial | Display current room temperature as a number and visually as a function of rotation in the range of 0 to 36 degrees | On change: <br><ul><li>Update the central number with the new value</li><li>Change the displayed rotation on the coloured temperature dial</li><li>iOS clicking sound</li></ul>On click +/-: <br><ul><li>Change value by +/- 1 degree</li></ul> |
 | OutsideTemp | Display outside temperature | Nice to have: <br><ul><li>Display actual outside temperature, not hardcoded placeholder</li></ul> |
 | OutsideHumid | Display outside humidity | <b>Is this outside or inside humidity?</b><br><br> Nice to have: <br><ul><li>Display actual outside humidity, not hardcoded placeholder</li></ul> |
 
@@ -64,6 +64,7 @@ centigrade)
 -   On drag pointer on outer circle, adjust temperature value
 -   Pointer shouldn't be able to be dragged below 0&deg; 
 -   Pointer shouldn't be able to be dragged above 36&deg; 
+-   On value change, clicking sound should be produced
 
 ### OutsideTemp
 -   It should display "OUTSIDE"
