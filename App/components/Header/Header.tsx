@@ -1,5 +1,5 @@
 import * as React from "react"
-import { View, Image, Text, Dimensions } from 'react-native'
+import { View, Image, Text, Dimensions, StyleSheet } from 'react-native'
 
 const menuWhite = require('../../../assets/icons/menu-white.png')
 const cogWheel = require('../../../assets/icons/cogwheel-white.png')
@@ -30,7 +30,7 @@ const Header: React.FunctionComponent<{}> = () => {
     )
 }
 
-const styles = {
+const styles = StyleSheet.create({
     title: {
         color: '#FFF',
         fontSize: 25
@@ -39,6 +39,6 @@ const styles = {
         width: 25,
         height: 25
     }
-}
+})
 
 export default Header

@@ -3,6 +3,7 @@ import { TouchableOpacity, Image } from 'react-native'
 import { render, fireEvent } from 'react-native-testing-library'
 import Icon from './Icon'
 import Page from '../Page/Page'
+import icons from './icons'
 
 const createTestProps = (props?: object) => ({
     ...props
@@ -15,7 +16,7 @@ describe('Header', () => {
         it('should display selected version when selected', () => {
             let props = {
                 selected: true,
-                icon: 'connections',
+                icon: icons[2],
                 onSelected: jest.fn()
             }
             const { getByType } = render(<Icon {...props} />)
@@ -28,7 +29,7 @@ describe('Header', () => {
         it('should display default version when not selected', () => {
             let props = {
                 selected: false,
-                icon: 'bulb',
+                icon: icons[0],
                 onSelected: jest.fn()
             }
             const { getByType } = render(<Icon {...props} />)
@@ -45,13 +46,13 @@ describe('Header', () => {
             let onSelected = jest.fn()
             let props = {
                 selected: false,
-                icon: 'bulb',
+                icon: icons[0],
                 onSelected
             }
             const { getByTestId } = render(<Icon {...props} />)
             fireEvent.press(getByTestId('clickContainer'))
 
-            expect(onSelected).toHaveBeenCalledWith("bulb")
+            expect(onSelected).toHaveBeenCalledWith(icons[0])
         })
 
         it('should unselect other icons when icon is clicked', () => {
@@ -70,12 +71,10 @@ describe('Header', () => {
         it('should switch which screen is showing when icon is clicked', () => {
             const { getAllByType, getByTestId } = render(<Page {...createTestProps()} />)
 
-            let currentScreen = getByTestId("content")
-
-            let unselectedIcon = getAllByType(Icon).filter(icon => icon.props.selected == false)[0]
+            let unselectedIcon = getAllByType(Icon).filter(icon => icon.props.icon.name == "centralheating")[0]
             fireEvent.press(unselectedIcon.findByType(TouchableOpacity))
 
-            expect(currentScreen).not.toEqual(getByTestId("content"))
+            expect(getByTestId("heating")).toBeDefined()
         })
     })
 });

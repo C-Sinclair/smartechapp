@@ -1,20 +1,22 @@
 import * as React from 'react'
-import { View, Dimensions } from 'react-native'
-import { Router, Stack, Scene, Actions } from 'react-native-router-flux'
+import { View, Dimensions, StyleSheet, Text } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
 import Header from '../Header/Header'
 import Icon from '../Icon/Icon'
 import icons from '../Icon/icons'
+import { IconType } from '../Icon/IconTypes'
+import colours from '../../themes/Colours'
 
 const Page: React.FunctionComponent<{}> = (props: Object) => {
 
-    const [selected, onSelected] = React.useState(icons[0])
+    const [selected, onSelected] = React.useState<IconType>(icons[0] as IconType)
 
     React.useEffect(() => {
-        Actions.popTo(selected.name)
+
     }, [selected])
 
     return (
-        <View style={styles.page}>
+        <LinearGradient colors={[colours.darkest, colours.lightest]} style={styles.page}>
             <Header />
             <View style={styles.icons}>
                 {icons.map(icon => (
@@ -25,18 +27,21 @@ const Page: React.FunctionComponent<{}> = (props: Object) => {
                         onSelected={onSelected} />
                 ))}
             </View>
-            <Router>
-                <Stack key="content">
-                    {icons.map(icon => (
-                        <Scene key={icon.name} component={icon.component} />
-                    ))}
-                </Stack>
-            </Router>
-        </View>
+            <View testID="content">
+                {selected.name == "centralheating"
+                    ? (
+                        <View testID="heating">
+                            <Text>Heating</Text>
+                        </View>
+                    )
+                    : <View />
+                }
+            </View>
+        </LinearGradient>
     )
 }
 
-const styles = {
+const styles = StyleSheet.create({
     page: {
         backgroundColor: '#000',
         flex: 1,
@@ -45,10 +50,10 @@ const styles = {
     },
     icons: {
         flex: 1,
-        flexDirection: "row",
         width: Dimensions.get('screen').width,
-        justifyContent: 'space-evenly'
+        flexDirection: 'row',
+        justifyContent: 'space-around'
     }
-}
+})
 
 export default Page
