@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { View, Dimensions, StyleSheet, Text } from 'react-native'
+import { View, Dimensions, StyleSheet } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import Header from '../Header/Header'
 import Icon from '../Icon/Icon'
@@ -8,6 +8,7 @@ import { IconType } from '../Icon/IconTypes'
 import colours from '../../themes/Colours'
 import OutsideTemp from '../OutsideTemp/OutsideTemp'
 import OutsideHumid from '../OutsideHumid/OutsideHumid'
+import CarouselComponent from '../Carousel/Carousel'
 
 type PageProps = {
     selectedIcon: number
@@ -17,6 +18,7 @@ const Page: React.FunctionComponent<PageProps> = (props: PageProps) => {
 
     const index = props.selectedIcon || 0
     const [selected, onSelected] = React.useState<IconType>(icons[index] as IconType)
+    const [room, setRoom] = React.useState(1)
 
     return (
         <LinearGradient colors={[colours.darkest, colours.lightest]} style={styles.page}>
@@ -33,12 +35,14 @@ const Page: React.FunctionComponent<PageProps> = (props: PageProps) => {
             <View testID="content" style={styles.content}>
                 {selected.name == "centralheating"
                     ? (
-                        <View testID="heating">
-                            <View style={styles.readings}>
+                        <React.Fragment>
+                            <View testID="heating" style={styles.readings}>
                                 <OutsideTemp />
                                 <OutsideHumid />
                             </View>
-                        </View>
+                            <CarouselComponent
+                                selected={room} setSelected={setRoom} />
+                        </React.Fragment>
                     )
                     : <View />
                 }

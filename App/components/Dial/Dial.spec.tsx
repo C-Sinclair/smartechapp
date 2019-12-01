@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { render } from 'react-native-testing-library'
-import Page from '../Page/Page'
+// import * as React from 'react';
+// import { render } from 'react-native-testing-library'
+// import Page from '../Page/Page'
 
 describe('Dial', () => {
-    const { queryByTestId, getByTestId } = render(<Page selectedIcon={1} />);
+    // const { queryByTestId, getByTestId } = render(<Page selectedIcon={1} />);
 
     describe('rendering', () => {
 
