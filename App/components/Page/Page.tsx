@@ -6,6 +6,8 @@ import Icon from '../Icon/Icon'
 import icons from '../Icon/icons'
 import { IconType } from '../Icon/IconTypes'
 import colours from '../../themes/Colours'
+import OutsideTemp from '../OutsideTemp/OutsideTemp'
+import OutsideHumid from '../OutsideHumid/OutsideHumid'
 
 type PageProps = {
     selectedIcon: number
@@ -33,14 +35,8 @@ const Page: React.FunctionComponent<PageProps> = (props: PageProps) => {
                     ? (
                         <View testID="heating">
                             <View style={styles.readings}>
-                                <View>
-                                    <Text testID="tempText" style={styles.readingTitle}>OUTSIDE</Text>
-                                    <Text testID="tempValue" style={styles.value}>14°</Text>
-                                </View>
-                                <View>
-                                    <Text testID="humidText" style={styles.readingTitle}>HUMIDITY</Text>
-                                    <Text testID="humidValue" style={styles.rightValue}>44%</Text>
-                                </View>
+                                <OutsideTemp />
+                                <OutsideHumid />
                             </View>
                         </View>
                     )
