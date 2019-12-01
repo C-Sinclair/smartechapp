@@ -8,8 +8,6 @@
     "ios": "react-native run-ios",
     "test": "jest",
     "test:watch": "yarn test -- --watch",
-    "e2e:build": "detox build -c android.emu.debug",
-    "e2e:test": "detox test -c android.emu.debug --reuse",
     "prestorybook": "rnstl",
     "storybook": "start-storybook -p 7007",
     "storyserver": "(adb reverse tcp:7007 tcp:7007 || true) && start-storybook",
@@ -79,6 +77,7 @@
     "react-native-config": "^0.11.7",
     "react-native-dotenv": "^0.2.0",
     "react-native-storybook-loader": "^1.8.1",
+    "react-native-testing-library": "^1.11.1",
     "react-test-renderer": "16.9.0",
     "ts-jest": "^24.2.0",
     "typescript": "^3.7.2"
@@ -114,39 +113,6 @@
       ],
       "pattern": "**/*.story.js",
       "outputFile": "./storybook/storyloader.js"
-    }
-  },
-  "detox": {
-    "test-runner": "jest",
-    "configurations": {
-      "ios.sim.debug": {
-        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/PunchierThanAn.app",
-        "build": "xcodebuild -workspace ios/PunchierThanAn.xcworkspace -scheme PunchierThanAn -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
-        "type": "ios.simulator",
-        "name": "iPhone 8"
-      },
-      "android.emu.debug": {
-        "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
-        "build": "cd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd ..",
-        "type": "android.emulator",
-        "device": {
-          "avdName": "Nexus_5X_API_29"
-        }
-      },
-      "android.emu.release": {
-        "binaryPath": "android/app/build/outputs/apk/release/app-release.apk",
-        "build": "cd android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && cd ..",
-        "type": "android.emulator",
-        "device": {
-          "avdName": "Nexus_5X_API_29"
-        }
-      },
-      "android.attached": {
-        "binaryPath": "android/app/build/outputs/apk/release/app-release.apk",
-        "build": "cd android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && cd ..",
-        "type": "android.attached",
-        "name": "CTLGAP1892106916"
-      }
     }
   }
 }
