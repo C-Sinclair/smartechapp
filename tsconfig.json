@@ -12,9 +12,18 @@
     "noUnusedLocals": true,
     "sourceMap": true,
     "target": "es2015",
-    "lib": ["es6"],
+    "lib": [
+      "es6"
+    ],
     "skipLibCheck": true
   },
-  "exclude": ["__tests__", "node_modules"],
-  "include": ["App", "storybook"]
+  "exclude": [
+    "__tests__",
+    "node_modules"
+  ],
+  "include": [
+    "App",
+    "storybook",
+    "./global.d.ts"
+  ]
 }
