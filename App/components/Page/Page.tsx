@@ -28,11 +28,20 @@ const Page: React.FunctionComponent<PageProps> = (props: PageProps) => {
                         onSelected={onSelected} />
                 ))}
             </View>
-            <View testID="content">
+            <View testID="content" style={styles.content}>
                 {selected.name == "centralheating"
                     ? (
                         <View testID="heating">
-                            <Text>Heating</Text>
+                            <View style={styles.readings}>
+                                <View>
+                                    <Text testID="tempText" style={styles.readingTitle}>OUTSIDE</Text>
+                                    <Text testID="tempValue" style={styles.value}>14°</Text>
+                                </View>
+                                <View>
+                                    <Text testID="humidText" style={styles.readingTitle}>HUMIDITY</Text>
+                                    <Text testID="humidValue" style={styles.rightValue}>44%</Text>
+                                </View>
+                            </View>
                         </View>
                     )
                     : <View />
@@ -52,8 +61,41 @@ const styles = StyleSheet.create({
     icons: {
         flex: 1,
         width: Dimensions.get('screen').width,
+        height: 100,
         flexDirection: 'row',
         justifyContent: 'space-around'
+    },
+    content: {
+        position: 'relative',
+        width: Dimensions.get('screen').width,
+        height: Dimensions.get('screen').height - 350,
+        marginTop: 25
+    },
+    readings: {
+        position: 'absolute',
+        top: 0,
+        width: Dimensions.get('screen').width,
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 20
+    },
+    readingTitle: {
+        color: colours.grey,
+        fontSize: 20
+    },
+    value: {
+        fontWeight: 'bold',
+        fontSize: 30,
+        color: '#FFF',
+        paddingTop: 5
+    },
+    rightValue: {
+        fontWeight: 'bold',
+        fontSize: 30,
+        color: '#FFF',
+        paddingTop: 5,
+        textAlign: 'right'
     }
 })
 
