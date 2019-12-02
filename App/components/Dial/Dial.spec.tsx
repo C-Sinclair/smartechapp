@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, fireEvent } from 'react-native-testing-library'
 import Dial from '../Dial/Dial'
-import SpriteSheet from 'rn-sprite-sheet'
+import FastImage from 'react-native-fast-image';
 
 describe('Dial', () => {
 
@@ -9,12 +9,13 @@ describe('Dial', () => {
 
         it('should display correct image for temperature', () => {
             const { getByType } = render(<Dial temp={24} />);
-            expect(getByType(SpriteSheet).props.source).toEqual(require('../../../assets/sprite.png'))
+            expect(getByType(FastImage).props.source).toEqual(require('../../../assets/png/240.png'))
         })
 
         it('should display temperature figure', () => {
             const { getByTestId } = render(<Dial temp={24} />);
-            expect(getByTestId("tempFigure").props.children).toEqual("24°")
+            const value = getByTestId("tempFigure").props.children[0]
+            expect(value).toEqual(24)
         })
     });
 
@@ -23,10 +24,10 @@ describe('Dial', () => {
         it('should change temperature on +/- button press', () => {
             const { getByTestId } = render(<Dial temp={24} />);
             fireEvent.press(getByTestId("plus"))
-            expect(getByTestId("tempFigure").props.children).toEqual("25°")
+            expect(getByTestId("tempFigure").props.children[0]).toEqual(25)
 
             fireEvent.press(getByTestId("minus"))
-            expect(getByTestId("tempFigure").props.children).toEqual("24°")
+            expect(getByTestId("tempFigure").props.children[0]).toEqual(24)
         })
 
         it('should adjust temperature on touch of dial', () => {
@@ -37,12 +38,12 @@ describe('Dial', () => {
             const minus = () => {
                 const { getByTestId } = render(<Dial temp={0} />);
                 fireEvent.press(getByTestId("minus"))
-                expect(getByTestId("tempFigure").props.children).toEqual("0°")
+                expect(getByTestId("tempFigure").props.children[0]).toEqual(0)
             }
             const plus = () => {
-                const { getByTestId } = render(<Dial temp={360} />);
+                const { getByTestId } = render(<Dial temp={36} />);
                 fireEvent.press(getByTestId("plus"))
-                expect(getByTestId("tempFigure").props.children).toEqual("360°")
+                expect(getByTestId("tempFigure").props.children[0]).toEqual(36)
             }
             minus()
             plus()
