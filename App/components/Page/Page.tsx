@@ -23,7 +23,7 @@ const Page: React.FunctionComponent<PageProps> = (props: PageProps) => {
 
     let humid = calculateHumidity(room)
     let outsideTemp = calculateOutsideTemp()
-    let temp = 26
+    let temp = 20
 
     React.useEffect(() => {
         humid = calculateHumidity(room)
