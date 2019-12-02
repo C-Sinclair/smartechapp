@@ -9,6 +9,7 @@ import colours from '../../themes/Colours'
 import OutsideTemp from '../OutsideTemp/OutsideTemp'
 import OutsideHumid from '../OutsideHumid/OutsideHumid'
 import CarouselComponent from '../Carousel/Carousel'
+import Dial from '../Dial/Dial'
 
 type PageProps = {
     selectedIcon: number
@@ -22,6 +23,7 @@ const Page: React.FunctionComponent<PageProps> = (props: PageProps) => {
 
     let humid = calculateHumidity(room)
     let outsideTemp = calculateOutsideTemp()
+    let temp = 26
 
     React.useEffect(() => {
         humid = calculateHumidity(room)
@@ -51,6 +53,7 @@ const Page: React.FunctionComponent<PageProps> = (props: PageProps) => {
                             </View>
                             <CarouselComponent
                                 selected={room} setSelected={setRoom} />
+                            <Dial temp={temp} />
                         </React.Fragment>
                     )
                     : <View />
