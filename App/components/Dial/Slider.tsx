@@ -109,6 +109,7 @@ const Slider = (props: SliderProps) => {
             onLayout={() => setCircleCenter()}
         >
             <Svg
+                testID="sliderSVG"
                 height={containerWidth}
                 width={containerWidth}
                 ref={c => circle = c}

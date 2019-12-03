@@ -36,6 +36,8 @@ target 'smartechapp' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'RNSound', :path => '../node_modules/react-native-sound'
+
   target 'smartechappTests' do
     inherit! :search_paths
     # Pods for testing

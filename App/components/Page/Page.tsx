@@ -70,14 +70,8 @@ const Page: React.FunctionComponent<PageProps> = (props: PageProps) => {
     )
 }
 
-const calculateHumidity = (room: number) => {
-    return (room == 1)
-        ? 44
-        : Math.floor(100 * Math.random())
-}
-
+const calculateHumidity = (room: number) => [32, 44, 11][room]
 const calculateOutsideTemp = () => 14
-
 
 const styles = StyleSheet.create({
     page: {

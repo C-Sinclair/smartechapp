@@ -2,21 +2,30 @@ import * as React from 'react'
 import { View, Dimensions, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import colours from '../../themes/Colours'
 import Slider from './Slider';
+import Sound from 'react-native-sound'
 
 type DialProps = {
     temp: number,
     setTemp: Function
 }
 
+Sound.setCategory('Playback')
+
 const dialRadius = 180
 
 const Dial = (props: DialProps) => {
-
+    const click = new Sound(require('../../../assets/ios-click.mp3'), error => {
+        console.log(`error ${error}`)
+        return
+    })
     return (
         <View style={styles.container}>
             <Slider
                 angle={toRadians(props.temp)}
-                setAngle={angle => props.setTemp(toCelcius(angle))}
+                setAngle={angle => {
+                    if (click) click.play()
+                    props.setTemp(toCelcius(angle))
+                }}
                 radius={dialRadius}
                 style={styles.slider}
             >
