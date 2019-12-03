@@ -20,16 +20,15 @@ const Page: React.FunctionComponent<PageProps> = (props: PageProps) => {
     const index = props.selectedIcon || 0
     const [selected, onSelected] = React.useState<IconType>(icons[index] as IconType)
     const [room, setRoom] = React.useState(1)
+    const [roomTemps, setRoomTemps] = React.useState([22, 24, 18])
 
     let humid = calculateHumidity(room)
     let outsideTemp = calculateOutsideTemp()
-    let temp = 20
 
     React.useEffect(() => {
         humid = calculateHumidity(room)
         outsideTemp = calculateOutsideTemp()
     }, [room])
-
 
     return (
         <LinearGradient colors={[colours.darkest, colours.lightest]} style={styles.page}>
@@ -53,7 +52,15 @@ const Page: React.FunctionComponent<PageProps> = (props: PageProps) => {
                             </View>
                             <CarouselComponent
                                 selected={room} setSelected={setRoom} />
-                            <Dial temp={temp} />
+                            <Dial
+                                temp={roomTemps[room]}
+                                setTemp={temp => {
+                                    let temps = roomTemps.map((t, index) => {
+                                        if (index == room) return temp
+                                        return t
+                                    })
+                                    setRoomTemps(temps)
+                                }} />
                         </React.Fragment>
                     )
                     : <View />

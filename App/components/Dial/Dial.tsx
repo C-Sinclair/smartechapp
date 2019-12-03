@@ -1,83 +1,25 @@
 import * as React from 'react'
-import { View, Dimensions, StyleSheet, TouchableOpacity, Text, PanResponder, PanResponderInstance, Alert } from 'react-native'
+import { View, Dimensions, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import colours from '../../themes/Colours'
 import FastImage from 'react-native-fast-image'
 
-
 type DialProps = {
-    temp: number
+    temp: number,
+    setTemp: Function
 }
 
 const Dial = (props: DialProps) => {
 
     const [temp, setTemp] = React.useState(props.temp)
     const [image, setImage] = React.useState(getImage(temp * 10))
-    const [values, setValues] = React.useState<{
-        startAngle: number,
-        startRadius: number,
-        releaseAngle: number,
-        releaseRadius: number
-    }>()
-    const [angle, setAngle] = React.useState(temp * 10)
-    const [radius, setRadius] = React.useState(Dimensions.get("screen").width / 2)
 
     React.useEffect(() => {
         setImage(getImage(temp * 10))
+        props.setTemp(temp)
     }, [temp])
 
-    let panResponder: PanResponderInstance = PanResponder.create({
-        onStartShouldSetPanResponder: (e, gestureState) => true,
-        onStartShouldSetPanResponderCapture: (e, gestureState) => {
-            const { deg, radius } = calcAngle(e.nativeEvent)
-            setValues({
-                ...values,
-                startAngle: deg,
-                startRadius: radius
-            })
-            return true
-        },
-        onMoveShouldSetPanResponder: (e, g) => true,
-        onMoveShouldSetPanResponderCapture: (e, gestureState) => true,
-        onPanResponderGrant: (e, gestureState) => true,
-        onPanResponderMove: (e, gestureState) => requestAnimationFrame(() => {
-            updateAngle(gestureState)
-        }),
-        onPanResponderRelease: (e, gestureState) => {
-            setValues({
-                ...values,
-                releaseAngle: angle,
-                releaseRadius: radius,
-            })
-        },
-    })
-
-    function updateAngle(gestureState) {
-        let { deg } = calcAngle(gestureState)
-        if (Math.abs(angle - deg) > 0) {
-
-
-
-            deg = deg + values.releaseAngle - values.startAngle
-
-            Alert.alert(deg.toString())
-
-            setAngle(deg)
-            setTemp(deg / 10)
-        }
-    }
-
-    function calcAngle(gestureState) {
-        const { pageX, pageY, moveX, moveY } = gestureState
-        const [dx, dy] = [pageX || moveX, pageY || moveY]
-        return {
-            deg: Math.atan2(dy, dx) * 180 / Math.PI + 120,
-            radius: Math.sqrt(dy * dy + dx * dx) / radius
-        }
-    }
-
-
     return (
-        <View style={styles.container} {...panResponder.panHandlers}>
+        <View style={styles.container}>
 
             <FastImage
                 style={styles.image}

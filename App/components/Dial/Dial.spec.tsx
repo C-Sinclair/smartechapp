@@ -31,7 +31,7 @@ describe('Dial', () => {
         })
 
         it('should adjust temperature on touch of dial', () => {
-
+            // struggling to find a solid way of implementing this 
         })
 
         it('should not be able to go below 0 or above 360', () => {
@@ -50,7 +50,7 @@ describe('Dial', () => {
         })
 
         it('should produce clicking sound on temperature change', () => {
-
+            // nice to have UX for the future
         })
     })
 });
