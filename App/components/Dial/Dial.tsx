@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { View, Dimensions, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native'
+import { View, Dimensions, StyleSheet, TouchableOpacity, Text, PanResponder, PanResponderInstance, Alert } from 'react-native'
 import colours from '../../themes/Colours'
 import FastImage from 'react-native-fast-image'
-import { Dial as InvisiDial } from 'react-native-dial'
+
 
 type DialProps = {
     temp: number
@@ -11,45 +11,93 @@ type DialProps = {
 const Dial = (props: DialProps) => {
 
     const [temp, setTemp] = React.useState(props.temp)
-    const [angle, setAngle] = React.useState(temp * 10)
     const [image, setImage] = React.useState(getImage(temp * 10))
+    const [values, setValues] = React.useState<{
+        startAngle: number,
+        startRadius: number,
+        releaseAngle: number,
+        releaseRadius: number
+    }>()
+    const [angle, setAngle] = React.useState(temp * 10)
+    const [radius, setRadius] = React.useState(Dimensions.get("screen").width / 2)
 
     React.useEffect(() => {
         setImage(getImage(temp * 10))
     }, [temp])
 
-    const rotateGesture = (a, r) => {
-        Alert.alert(a)
-        if (a > angle && temp < 36) setTemp(temp + 1)
-        if (a < angle && temp > 0) setTemp(temp - 1)
-        setAngle(a)
+    let panResponder: PanResponderInstance = PanResponder.create({
+        onStartShouldSetPanResponder: (e, gestureState) => true,
+        onStartShouldSetPanResponderCapture: (e, gestureState) => {
+            const { deg, radius } = calcAngle(e.nativeEvent)
+            setValues({
+                ...values,
+                startAngle: deg,
+                startRadius: radius
+            })
+            return true
+        },
+        onMoveShouldSetPanResponder: (e, g) => true,
+        onMoveShouldSetPanResponderCapture: (e, gestureState) => true,
+        onPanResponderGrant: (e, gestureState) => true,
+        onPanResponderMove: (e, gestureState) => requestAnimationFrame(() => {
+            updateAngle(gestureState)
+        }),
+        onPanResponderRelease: (e, gestureState) => {
+            setValues({
+                ...values,
+                releaseAngle: angle,
+                releaseRadius: radius,
+            })
+        },
+    })
+
+    function updateAngle(gestureState) {
+        let { deg } = calcAngle(gestureState)
+        if (Math.abs(angle - deg) > 0) {
+
+
+
+            deg = deg + values.releaseAngle - values.startAngle
+
+            Alert.alert(deg.toString())
+
+            setAngle(deg)
+            setTemp(deg / 10)
+        }
     }
 
+    function calcAngle(gestureState) {
+        const { pageX, pageY, moveX, moveY } = gestureState
+        const [dx, dy] = [pageX || moveX, pageY || moveY]
+        return {
+            deg: Math.atan2(dy, dx) * 180 / Math.PI + 120,
+            radius: Math.sqrt(dy * dy + dx * dx) / radius
+        }
+    }
+
+
     return (
-        <React.Fragment>
+        <View style={styles.container} {...panResponder.panHandlers}>
 
-            <View style={styles.container}>
+            <FastImage
+                style={styles.image}
+                source={image}
+            />
 
-                <View style={styles.inner}>
-                    <TouchableOpacity testID="plus" onPress={() => {
-                        if (temp < 36) setTemp(temp + 1)
-                    }}>
-                        <Text style={styles.plus}>+</Text>
-                    </TouchableOpacity>
-                    <Text style={styles.temp} testID="tempFigure">{temp}°</Text>
-                    <TouchableOpacity testID="minus" onPress={() => {
-                        if (temp > 0) setTemp(temp - 1)
-                    }}>
-                        <Text style={styles.minus}>-</Text>
-                    </TouchableOpacity>
-                </View>
-                <FastImage
-                    style={styles.image}
-                    source={image}
-                />
-
+            <View style={styles.inner}>
+                <TouchableOpacity testID="plus" onPress={() => {
+                    if (temp < 36) setTemp(temp + 1)
+                }}>
+                    <Text style={styles.plus}>+</Text>
+                </TouchableOpacity>
+                <Text style={styles.temp} testID="tempFigure">{temp}°</Text>
+                <TouchableOpacity testID="minus" onPress={() => {
+                    if (temp > 0) setTemp(temp - 1)
+                }}>
+                    <Text style={styles.minus}>-</Text>
+                </TouchableOpacity>
             </View>
-        </React.Fragment>
+        </View>
     )
 }
 
@@ -77,15 +125,13 @@ const styles = StyleSheet.create({
         color: colours.hot,
         textAlign: 'center',
         fontSize: 50,
-        top: 0,
-        zIndex: 10
+        top: 0
     },
     minus: {
         color: colours.cold,
         textAlign: 'center',
         fontSize: 50,
-        bottom: 0,
-        zIndex: 10
+        bottom: 0
     },
     temp: {
         color: '#FFF',
