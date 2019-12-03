@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { View, Dimensions, StyleSheet, TouchableOpacity, Text } from 'react-native'
+import { View, Dimensions, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native'
 import colours from '../../themes/Colours'
 import FastImage from 'react-native-fast-image'
+import { Dial as InvisiDial } from 'react-native-dial'
 
 type DialProps = {
     temp: number
@@ -10,31 +11,45 @@ type DialProps = {
 const Dial = (props: DialProps) => {
 
     const [temp, setTemp] = React.useState(props.temp)
+    const [angle, setAngle] = React.useState(temp * 10)
     const [image, setImage] = React.useState(getImage(temp * 10))
 
     React.useEffect(() => {
         setImage(getImage(temp * 10))
     }, [temp])
 
+    const rotateGesture = (a, r) => {
+        Alert.alert(a)
+        if (a > angle && temp < 36) setTemp(temp + 1)
+        if (a < angle && temp > 0) setTemp(temp - 1)
+        setAngle(a)
+    }
+
     return (
-        <View style={styles.container}>
-            <FastImage
-                style={styles.image}
-                source={image} />
-            <View style={styles.inner}>
-                <TouchableOpacity testID="plus" onPress={() => {
-                    if (temp < 36) setTemp(temp + 1)
-                }}>
-                    <Text style={styles.plus}>+</Text>
-                </TouchableOpacity>
-                <Text style={styles.temp} testID="tempFigure">{temp}°</Text>
-                <TouchableOpacity testID="minus" onPress={() => {
-                    if (temp > 0) setTemp(temp - 1)
-                }}>
-                    <Text style={styles.minus}>-</Text>
-                </TouchableOpacity>
+        <React.Fragment>
+
+            <View style={styles.container}>
+
+                <View style={styles.inner}>
+                    <TouchableOpacity testID="plus" onPress={() => {
+                        if (temp < 36) setTemp(temp + 1)
+                    }}>
+                        <Text style={styles.plus}>+</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.temp} testID="tempFigure">{temp}°</Text>
+                    <TouchableOpacity testID="minus" onPress={() => {
+                        if (temp > 0) setTemp(temp - 1)
+                    }}>
+                        <Text style={styles.minus}>-</Text>
+                    </TouchableOpacity>
+                </View>
+                <FastImage
+                    style={styles.image}
+                    source={image}
+                />
+
             </View>
-        </View>
+        </React.Fragment>
     )
 }
 
@@ -62,13 +77,15 @@ const styles = StyleSheet.create({
         color: colours.hot,
         textAlign: 'center',
         fontSize: 50,
-        top: 0
+        top: 0,
+        zIndex: 10
     },
     minus: {
         color: colours.cold,
         textAlign: 'center',
         fontSize: 50,
-        bottom: 0
+        bottom: 0,
+        zIndex: 10
     },
     temp: {
         color: '#FFF',
