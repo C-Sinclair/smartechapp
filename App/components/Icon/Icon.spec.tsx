@@ -6,6 +6,7 @@ import Page from '../Page/Page'
 import icons from './icons'
 
 const createTestProps = (props?: object) => ({
+    selectedIcon: 0,
     ...props
 })
 

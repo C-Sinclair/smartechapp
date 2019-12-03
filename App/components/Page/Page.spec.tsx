@@ -3,6 +3,7 @@ import { render } from 'react-native-testing-library'
 import Page from './Page'
 
 const createTestProps = (props?: object) => ({
+    selectedIcon: 0,
     ...props,
 });
 
