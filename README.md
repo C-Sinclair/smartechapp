@@ -6,10 +6,10 @@ Smartech
 To run the project you will need `nodejs` installed
 ```bash
 # Clone the project
-git clone _____
+git clone https://github.com/C-Sinclair/smartechapp.git
 
 # Install dependencies
-cd ____
+cd smartechapp
 npm install
 ```
 
