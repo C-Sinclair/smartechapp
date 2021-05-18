@@ -19,7 +19,7 @@
     "react-native": "0.61.5",
     "react-native-circular-slider": "^1.0.1",
     "react-native-dial": "^1.0.12",
-    "react-native-fast-image": "^7.0.2",
+    "react-native-fast-image": "^8.3.0",
     "react-native-gesture-handler": "^1.5.2",
     "react-native-screens": "^2.0.0-alpha.15",
     "react-native-snap-carousel": "^3.8.4",
